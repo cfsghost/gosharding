@@ -1,5 +1,7 @@
 # gosharding
 
+[![GoDoc](https://godoc.org/github.com/cfsghost/gosharding?status.svg)](http://godoc.org/github.com/cfsghost/gosharding)
+
 Library to provide a way to process data in parallel by sharding.
 
 ## License
