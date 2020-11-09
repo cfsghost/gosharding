@@ -9,11 +9,9 @@ type Options struct {
 
 func NewOptions() *Options {
 	return &Options{
-		PipelineCount: 32,
-		BufferSize:    8192,
-		PrepareHandler: func(id int32, data interface{}, c chan interface{}) {
-			c <- data
-		},
+		PipelineCount:  32,
+		BufferSize:     8192,
+		PrepareHandler: nil,
 		Handler: func(int32, interface{}) {
 		},
 	}

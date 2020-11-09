@@ -23,8 +23,6 @@ func NewShard(opts *Options) *Shard {
 			bufferSize:     opts.BufferSize,
 			prepareHandler: opts.PrepareHandler,
 			handler:        opts.Handler,
-			inputClosed:    make(chan struct{}),
-			outputClosed:   make(chan struct{}),
 		}
 
 		pipeline.initialize()
@@ -42,7 +40,7 @@ func NewShard(opts *Options) *Shard {
 func (shard *Shard) dispatch(data interface{}) {
 
 	// Push data to pipeline
-	shard.pipelines[shard.counter].input <- data
+	shard.pipelines[shard.counter].push(data)
 	// Update counter
 	counter := atomic.AddInt32((*int32)(&shard.counter), 1)
 	if counter == shard.options.PipelineCount {
@@ -66,7 +64,7 @@ func (shard *Shard) Push(key uint64, data interface{}) {
 	pipelineID := jump.Hash(key, shard.options.PipelineCount)
 
 	// Push data to pipeline
-	shard.pipelines[pipelineID].input <- data
+	shard.pipelines[pipelineID].push(data)
 }
 
 // PushKV will put data to the pipelines by string key
@@ -80,5 +78,5 @@ func (shard *Shard) PushKV(key string, data interface{}) {
 	}
 
 	// Push data to pipeline
-	shard.pipelines[pipelineID].input <- data
+	shard.pipelines[pipelineID].push(data)
 }

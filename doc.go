@@ -1,6 +1,5 @@
 /*
 Package gosharding provides the ability to craete shard for process data in parallel.
-
 Here is example to create a shard:
 
 	// Create Options object

@@ -29,7 +29,7 @@ func init() {
 	payload, _ = json.Marshal(&data)
 }
 
-func BenchmarkBasic(b *testing.B) {
+func BenchmarkWithoutPipeline(b *testing.B) {
 
 	output := make(chan interface{}, b.N)
 
